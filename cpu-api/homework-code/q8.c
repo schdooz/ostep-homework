@@ -37,7 +37,11 @@ int main() {
     } else if (rc2 == 0) { // second child (reader)
       close(fildes[1]);
 
-      dup2(fildes[0], STDIN_FILENO);
+      if (dup2(fildes[0], STDIN_FILENO) < 0) {
+        fprintf(stderr, "failed to duplicated fildes[1] to stdout\n");
+        exit(1);
+      }
+
       read(STDIN_FILENO, buf, BSIZE);
 
       printf("reader sibling read %s", buf);
