@@ -6,7 +6,7 @@
 
 int main() {
   const int ITERATIONS = 10000000;
-  unsigned int tdiff_nsecs;
+  long tdiff_nsecs;
   int i;
 
   struct timespec tp1, tp2;
@@ -24,8 +24,8 @@ int main() {
 
   tdiff_nsecs = ((tp2.tv_sec - tp1.tv_sec) * 1000000000) + tp2.tv_nsec - tp1.tv_nsec;
 
-  printf("time taken to execute sys calls was %dns\n", tdiff_nsecs);
-  printf("avg time taken to execute sys call was %fns\n", (float) tdiff_nsecs / ITERATIONS);
+  printf("time taken to execute sys calls was %ldns\n", tdiff_nsecs);
+  printf("avg time taken to execute sys call was %fns\n", (double) tdiff_nsecs / ITERATIONS);
 
   return 0;
 }
