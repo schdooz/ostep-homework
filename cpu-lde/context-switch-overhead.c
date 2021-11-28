@@ -1,4 +1,6 @@
 #define _POSIX_C_SOURCE 199309L
+#define _GNU_SOURCE
+#include <sched.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -13,6 +15,11 @@ int main() {
   char *txt = "some data";
   char buf[BUFSIZE];
   struct timespec tp0, tp1, tp2, tp3;
+  cpu_set_t cpu_set;
+
+  // ensure processes run on same CPU
+  CPU_SET(0, &cpu_set);
+  sched_setaffinity(0, sizeof(cpu_set_t), &cpu_set);
 
   if (pipe(pipefd0) < 0 || pipe(pipefd1) || pipe(pipefd2) < 0 ||
       pipe(pipefd3) < 0) {
