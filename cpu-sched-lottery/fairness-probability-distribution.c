@@ -23,10 +23,10 @@ int main() {
   for (i = 1; i < 101; i++) {
     p = pow(0.5, 199 - i) * factorial(199 - i) / (factorial(100 - i) * factorial(99));
     expectation += (float) p * i;
-    printf("P(X = %d) = %.20Lf\n", i, p);
+    printf("P(X = %3d) = %10.3LE\n", i, p);
   }
 
-  printf("E(X) = %.20f\n", expectation);
+  printf("E(X) = %.3f\n", expectation);
 
   exit(0);
 }
