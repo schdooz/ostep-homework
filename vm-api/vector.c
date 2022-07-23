@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include <stdlib.h>
 
 struct vector {
@@ -29,4 +30,16 @@ void vector_append(struct vector *v, unsigned char byte) {
 
 unsigned char vector_get(struct vector *v, unsigned long index) {
     return v->bytes[index];
+}
+
+int main() {
+    struct vector v = vector_ctor();
+
+    vector_append(&v, 'a');
+    vector_append(&v, 'b');
+    vector_append(&v, 'c');
+
+    printf("First element is %c\n", vector_get(&v, 0));
+    printf("Second element is %c\n", vector_get(&v, 1));
+    printf("buflen is %lu\n", v.buflen);
 }
