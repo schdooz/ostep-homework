@@ -17,15 +17,22 @@ struct vector vector_ctor() {
     return v;
 }
 
-void vector_add(struct vector *v, unsigned char byte) {
+int vector_add(struct vector *v, unsigned char byte) {
     if (v->count + 1 > v->buflen) {
         v->bytes = realloc(v->bytes, (v->buflen)*2);
+
+        if (v->bytes == NULL) {
+            return -1;
+        }
+
         v->buflen = (v->buflen)*2;
     }
 
     v->bytes[v->count] = byte;
 
     v->count++;
+
+    return 0;
 }
 
 unsigned char vector_get(struct vector *v, unsigned long index) {
