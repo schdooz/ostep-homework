@@ -17,7 +17,7 @@ struct vector vector_ctor() {
     return v;
 }
 
-void vector_append(struct vector *v, unsigned char byte) {
+void vector_add(struct vector *v, unsigned char byte) {
     if (v->count + 1 > v->buflen) {
         v->bytes = realloc(v->bytes, (v->buflen)*2);
         v->buflen = (v->buflen)*2;
@@ -32,12 +32,22 @@ unsigned char vector_get(struct vector *v, unsigned long index) {
     return v->bytes[index];
 }
 
+int vector_mod(struct vector *v, unsigned long index, unsigned char val) {
+    if (index >= v->count) {
+        return -1;
+    }
+
+    v->bytes[index] = val;
+
+    return 0;
+}
+
 int main() {
     struct vector v = vector_ctor();
 
-    vector_append(&v, 'a');
-    vector_append(&v, 'b');
-    vector_append(&v, 'c');
+    vector_add(&v, 'a');
+    vector_add(&v, 'b');
+    vector_add(&v, 'c');
 
     printf("First element is %c\n", vector_get(&v, 0));
     printf("Second element is %c\n", vector_get(&v, 1));
