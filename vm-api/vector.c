@@ -18,13 +18,16 @@ struct vector vector_ctor() {
 }
 
 int vector_add(struct vector *v, unsigned char byte) {
-    if (v->count + 1 > v->buflen) {
-        v->bytes = realloc(v->bytes, (v->buflen)*2);
+    unsigned char *new_bytes;
 
-        if (v->bytes == NULL) {
+    if (v->count + 1 > v->buflen) {
+        new_bytes = realloc(v->bytes, (v->buflen)*2);
+
+        if (new_bytes == NULL) {
             return -1;
         }
 
+        v->bytes = new_bytes;
         v->buflen = (v->buflen)*2;
     }
 
