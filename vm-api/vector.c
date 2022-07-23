@@ -38,8 +38,14 @@ int vector_add(struct vector *v, unsigned char byte) {
     return 0;
 }
 
-unsigned char vector_get(struct vector *v, unsigned long index) {
-    return v->bytes[index];
+int vector_get(struct vector *v, unsigned long index, unsigned char *val) {
+    if (index >= v->count) {
+        return -1;
+    }
+
+    *val = v->bytes[index];
+
+    return 0;
 }
 
 int vector_mod(struct vector *v, unsigned long index, unsigned char val) {
@@ -54,12 +60,16 @@ int vector_mod(struct vector *v, unsigned long index, unsigned char val) {
 
 int main() {
     struct vector v = vector_ctor();
+    unsigned char c;
 
     vector_add(&v, 'a');
     vector_add(&v, 'b');
     vector_add(&v, 'c');
 
-    printf("First element is %c\n", vector_get(&v, 0));
-    printf("Second element is %c\n", vector_get(&v, 1));
+    vector_get(&v, 0, &c);
+    printf("First element is %c\n", c);
+
+    vector_get(&v, 1, &c);
+    printf("Second element is %c\n", c);
     printf("buflen is %lu\n", v.buflen);
 }
