@@ -10,7 +10,7 @@ struct vector {
 struct vector vector_ctor() {
     struct vector v;
 
-    v.buf = malloc(1);
+    v.buf = malloc(8);
     v.count = 0;
     v.buflen = 1;
 
