@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#define MINBUFLEN 8
+
 struct vector {
     unsigned char *buf;
     unsigned long count;
@@ -10,7 +12,7 @@ struct vector {
 struct vector vector_ctor() {
     struct vector v;
 
-    v.buf = malloc(8);
+    v.buf = malloc(MINBUFLEN);
     v.count = 0;
     v.buflen = 1;
 
@@ -47,7 +49,7 @@ int vector_pop(struct vector *v, unsigned char *val) {
 
     *val = v->buf[--(v->count)];
 
-    if (v->count < (v->buflen / 2)) {
+    if ((v-> buflen >= (2 * MINBUFLEN)) && (v->count < (v->buflen / 2))) {
         new_buf = realloc(v->buf, (v->buflen / 2));
 
         if (new_buf == NULL) {
