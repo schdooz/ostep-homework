@@ -2,7 +2,7 @@
 #include <stdlib.h>
 
 struct vector {
-    unsigned char *bytes;
+    unsigned char *buf;
     unsigned long count;
     unsigned long buflen;
 };
@@ -10,7 +10,7 @@ struct vector {
 struct vector vector_ctor() {
     struct vector v;
 
-    v.bytes = malloc(1);
+    v.buf = malloc(1);
     v.count = 0;
     v.buflen = 1;
 
@@ -18,20 +18,20 @@ struct vector vector_ctor() {
 }
 
 int vector_add(struct vector *v, unsigned char byte) {
-    unsigned char *new_bytes;
+    unsigned char *new_buf;
 
     if (v->count + 1 > v->buflen) {
-        new_bytes = realloc(v->bytes, (v->buflen)*2);
+        new_buf = realloc(v->buf, (v->buflen)*2);
 
-        if (new_bytes == NULL) {
+        if (new_buf == NULL) {
             return -1;
         }
 
-        v->bytes = new_bytes;
+        v->buf = new_buf;
         v->buflen = (v->buflen)*2;
     }
 
-    v->bytes[v->count] = byte;
+    v->buf[v->count] = byte;
 
     v->count++;
 
@@ -45,16 +45,16 @@ int vector_pop(struct vector *v, unsigned char *val) {
         return -1;
     }
 
-    *val = v->bytes[--(v->count)];
+    *val = v->buf[--(v->count)];
 
     if (v->count < (v->buflen / 2)) {
-        new_buf = realloc(v->bytes, (v->buflen / 2));
+        new_buf = realloc(v->buf, (v->buflen / 2));
 
         if (new_buf == NULL) {
             return -1;
         }
 
-        v->bytes = new_buf;
+        v->buf = new_buf;
         v->buflen /= 2;
     }
 
@@ -66,7 +66,7 @@ int vector_get(struct vector *v, unsigned long index, unsigned char *val) {
         return -1;
     }
 
-    *val = v->bytes[index];
+    *val = v->buf[index];
 
     return 0;
 }
@@ -76,7 +76,7 @@ int vector_mod(struct vector *v, unsigned long index, unsigned char val) {
         return -1;
     }
 
-    v->bytes[index] = val;
+    v->buf[index] = val;
 
     return 0;
 }
