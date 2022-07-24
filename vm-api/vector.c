@@ -64,7 +64,7 @@ int vector_pop(struct vector *v, unsigned char *val) {
 }
 
 int vector_get(struct vector *v, unsigned long index, unsigned char *val) {
-    if (index >= v->count) {
+    if (index >= v->count || index < 0) {
         return -1;
     }
 
@@ -74,7 +74,7 @@ int vector_get(struct vector *v, unsigned long index, unsigned char *val) {
 }
 
 int vector_mod(struct vector *v, unsigned long index, unsigned char val) {
-    if (index >= v->count) {
+    if (index >= v->count || index < 0) {
         return -1;
     }
 
