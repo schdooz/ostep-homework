@@ -38,6 +38,29 @@ int vector_add(struct vector *v, unsigned char byte) {
     return 0;
 }
 
+int vector_pop(struct vector *v, unsigned char *val) {
+    unsigned char *new_buf;
+
+    if (v->count <= 0) {
+        return -1;
+    }
+
+    *val = v->bytes[--(v->count)];
+
+    if (v->count < (v->buflen / 2)) {
+        new_buf = realloc(v->bytes, (v->buflen / 2));
+
+        if (new_buf == NULL) {
+            return -1;
+        }
+
+        v->bytes = new_buf;
+        v->buflen /= 2;
+    }
+
+    return 0;
+}
+
 int vector_get(struct vector *v, unsigned long index, unsigned char *val) {
     if (index >= v->count) {
         return -1;
