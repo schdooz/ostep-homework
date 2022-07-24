@@ -91,37 +91,33 @@ int vector_mod(struct vector *v, unsigned long index, unsigned char val) {
 
 int main() {
     struct vector v = vector_ctor();
+    int i, len = 1025;
     unsigned char c;
-
-    vector_add(&v, '0');
-    vector_add(&v, '1');
-    vector_add(&v, '2');
-    vector_add(&v, '3');
-    vector_add(&v, '4');
-    vector_add(&v, '5');
-    vector_add(&v, '6');
-    vector_add(&v, '7');
+    
+    for (i = 0; i < len; i++) {
+        vector_add(&v, i % 256);
+    }
 
     vector_get(&v, 0, &c);
-    printf("First element is %c\n", c);
+    printf("First element is %d\n", c);
 
     vector_get(&v, 1, &c);
-    printf("Second element is %c\n", c);
+    printf("Second element is %d\n", c);
 
     printf("count is %lu\n", v.count);
     printf("buflen is %lu\n", v.buflen);
 
     vector_pop(&v, &c);
-    printf("Popped value is %c\n", c);
-    printf("count after popping is %lu\n", v.count);
+    printf("Popped value is %d\n", c);
+    printf("count after popping once is %lu\n", v.count);
 
-    printf("Popping 4 more times...\n");
-    vector_pop(&v, &c);
-    vector_pop(&v, &c);
-    vector_pop(&v, &c);
-    vector_pop(&v, &c);
+    printf("Popping 513 more times...\n");
 
-    printf("Last popped value is %c\n", c);
+    for (i = 0; i < 513; i ++) {
+        vector_pop(&v, &c);
+    }
+
+    printf("Last popped value is %d\n", c);
     printf("count is %lu\n", v.count);
     printf("buflen is %lu\n", v.buflen);
 
