@@ -19,6 +19,12 @@ struct vector vector_ctor() {
     return v;
 }
 
+void vector_destroy(struct vector *v) {
+    free(v->buf);
+    v->count = 0;
+    v->buflen = 0;
+}
+
 int vector_add(struct vector *v, unsigned char byte) {
     unsigned char *new_buf;
 
@@ -118,4 +124,6 @@ int main() {
     printf("Last popped value is %c\n", c);
     printf("count is %lu\n", v.count);
     printf("buflen is %lu\n", v.buflen);
+
+    vector_destroy(&v);
 }
