@@ -2,7 +2,7 @@
 #include <stdlib.h>
 
 int main() {
-    int *ptr = malloc(100);
+    int *ptr = malloc(sizeof(int) * 100);
     int *p = ptr + 10;
 
     free(p);
